@@ -9,7 +9,7 @@ const browserSync = require("browser-sync").create();
 const image = require("gulp-image");
 const bro = require("gulp-bro");
 const babelify = require("babelify");
-var ghPages = require("gulp-gh-pages");
+const ghPages = require("gulp-gh-pages");
 
 // 경로
 const routes = {
@@ -36,7 +36,7 @@ const routes = {
 
 // clean build folder
 function clean() {
-  return del(["build"]);
+  return del(["build", ".publish"]);
 }
 
 // build images
@@ -101,4 +101,4 @@ const live = parallel([watch]);
 
 export const build = gulp.series([prepare, assets]);
 export const dev = gulp.series([build, live]);
-export const deploy = gulp.series([build, gh]);
+export const deploy = gulp.series([build, gh, clean]);
